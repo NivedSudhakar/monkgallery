@@ -1,0 +1,89 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.intro-container {
+  background-color: #161412;
+  height: 300px;
+
+  p, h1 {
+    color: var(--bs-gray-400);
+  }
+}
+
+.image-gallery {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 30vw;
+  list-style: none;
+  grid-gap: 20px;
+  margin-top: 20px;
+
+  figure, img {
+    width: 100%;
+    height: 100%;
+
+  }
+
+  img {
+    object-fit: cover;
+  }
+
+  .item {
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+
+    //short and tall are the same until i figure out what looks good
+    &.short {
+      grid-row: span 1;
+    }
+  
+    &.tall {
+      grid-row: span 1;
+    }
+  }
+
+
+
+  @media screen and (max-width: 960px) {
+    grid-template-columns: 1fr;
+  }
+}

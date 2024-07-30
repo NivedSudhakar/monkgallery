@@ -8,29 +8,42 @@ import axios from 'axios';
 
 function App() {
   const [images, setImages] = useState([]);
+  const [stats, setStats] = useState([]);
   const imageLinks = [];
   const effectRan = useRef(false);
 
 
-  async function getData() {
+  async function getDriveData() {
     try {
         let res = await axios({
             url: process.env.REACT_APP_GOOGLE_DRIVE_URL,
             method: 'get',
             timeout: 8000,
-
         })
-
-        // Don't forget to return something
         return res.data
     }
     catch (err) {
         console.error(err);
     }
   }
+
+  async function getSheetsData() {
+    try {
+        let res = await axios({
+            url: process.env.REACT_APP_GOOGLE_SHEETS_URL,
+            method: 'get',
+            timeout: 8000,
+        })
+        return res.data
+    }
+    catch (err) {
+        console.error(err);
+    }
+  }
+
   useEffect(() => {
     const abortController = new AbortController();
-    getData()
+    getDriveData()
       .then(response => {
           response.items.forEach(element => {
               imageLinks.push(element.alternateLink.split("/")[5]);
@@ -41,6 +54,11 @@ function App() {
 
       });
 
+      getSheetsData()
+        .then(response => {
+          setStats(response.values[response.values.length-1]);
+        })
+
     },[])
 
 
@@ -50,7 +68,7 @@ function App() {
   return (
     <div className="App">
       <Container>
-        <Intro/>
+        <Intro date={stats[0]} weight={stats[1]}/>
         <ImageGallery imageLinks={images}/>
       </Container>
     </div>

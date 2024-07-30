@@ -50,6 +50,7 @@
   width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  //grid-template-rows: masonry;
   grid-auto-rows: 30vw;
   list-style: none;
   grid-gap: 20px;
@@ -60,6 +61,7 @@
     height: 100%;
 
   }
+
 
   img {
     object-fit: cover;
@@ -75,7 +77,7 @@
     &.short {
       grid-row: span 1;
     }
-  
+
     &.tall {
       grid-row: span 1;
     }

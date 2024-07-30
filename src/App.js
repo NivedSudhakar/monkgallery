@@ -9,6 +9,7 @@ import axios from 'axios';
 function App() {
   const [images, setImages] = useState([]);
   const [stats, setStats] = useState([]);
+  const [age, setAge] = useState();
   const imageLinks = [];
   const effectRan = useRef(false);
 
@@ -27,10 +28,24 @@ function App() {
     }
   }
 
-  async function getSheetsData() {
+  async function getSheetsStats() {
     try {
         let res = await axios({
-            url: process.env.REACT_APP_GOOGLE_SHEETS_URL,
+            url: process.env.REACT_APP_GOOGLE_SHEETS_URL_STATS,
+            method: 'get',
+            timeout: 8000,
+        })
+        return res.data
+    }
+    catch (err) {
+        console.error(err);
+    }
+  }
+
+  async function getSheetsAge() {
+    try {
+        let res = await axios({
+            url: process.env.REACT_APP_GOOGLE_SHEETS_URL_AGE,
             method: 'get',
             timeout: 8000,
         })
@@ -54,9 +69,15 @@ function App() {
 
       });
 
-      getSheetsData()
+      getSheetsStats()
         .then(response => {
           setStats(response.values[response.values.length-1]);
+        })
+
+      getSheetsAge()
+        .then(response => {
+          setAge(response.values[0][0]);
+          console.log(age);
         })
 
     },[])
@@ -68,7 +89,7 @@ function App() {
   return (
     <div className="App">
       <Container>
-        <Intro date={stats[0]} weight={stats[1]}/>
+        <Intro date={stats[0]} weight={stats[1]} age={age}/>
         <ImageGallery imageLinks={images}/>
       </Container>
     </div>

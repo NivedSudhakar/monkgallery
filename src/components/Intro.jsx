@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Row, Col, Button } from "react-bootstrap";
 
-const Intro = ( {date, weight}) => {
+const Intro = ( {date, weight, age}) => {
   return (
     <Container className='intro-container'>
         <Row className='h-100'>
@@ -9,6 +9,7 @@ const Intro = ( {date, weight}) => {
                 <div className='mx-4'>
                     <h1>Pictures of Monk</h1>
                     <p>The leopard gecko named after the titular character from the hit tv show Monk</p>
+                    <p>Estimated Age: {age}</p>
                     <p>Weight as of {date}: {weight} grams</p>
                 </div>
             </Col>

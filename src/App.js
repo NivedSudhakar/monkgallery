@@ -3,6 +3,7 @@ import './App.scss';
 import Intro from './components/Intro';
 import { Container } from 'react-bootstrap';
 import ImageGallery from './components/ImageGallery';
+import PhotoGallery from './components/PhotoGallery';
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 
@@ -90,7 +91,7 @@ function App() {
     <div className="App">
       <Container>
         <Intro date={stats[0]} weight={stats[1]} age={age}/>
-        <ImageGallery imageLinks={images}/>
+        <PhotoGallery imageLinks={images}/>
       </Container>
     </div>
   );

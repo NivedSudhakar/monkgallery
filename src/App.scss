@@ -28,14 +28,7 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+
 
 .intro-container {
   background-color: #161412;
@@ -72,16 +65,11 @@
     overflow: hidden;
     margin: 0;
 
-    //short and tall are the same until i figure out what looks good
-    &.short {
-      grid-row: span 1;
-    }
-
-    &.tall {
-      grid-row: span 1;
-    }
   }
 
+  .photo-view {
+    border-radius: 10px;
+  }
 
 
   @media screen and (max-width: 960px) {

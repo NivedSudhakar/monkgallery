@@ -22,6 +22,7 @@ function App() {
             method: 'get',
             timeout: 8000,
         })
+        console.log(res.data);
         return res.data
     }
     catch (err) {
@@ -62,7 +63,8 @@ function App() {
     getDriveData()
       .then(response => {
           response.items.forEach(element => {
-              imageLinks.push(element.alternateLink.split("/")[5]);
+              imageLinks.push(element)
+              //imageLinks.push(element.alternateLink.split("/")[5]);
           });
 
           setImages(imageLinks);
@@ -91,7 +93,7 @@ function App() {
     <div className="App">
       <Container>
         <Intro date={stats[0]} weight={stats[1]} age={age}/>
-        <PhotoGallery imageLinks={images}/>
+        <PhotoGallery images={images}/>
       </Container>
     </div>
   );

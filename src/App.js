@@ -5,12 +5,30 @@ import { Container } from 'react-bootstrap';
 import ImageGallery from './components/ImageGallery';
 import PhotoGallery from './components/PhotoGallery';
 import { useEffect, useState, useRef } from 'react';
+import { Line } from 'react-chartjs-2';
+import Chart from 'chart.js/auto';
+
 import axios from 'axios';
 
 function App() {
   const [images, setImages] = useState([]);
-  const [stats, setStats] = useState([]);
+  const [stats, setStats] = useState([[]]);
   const [age, setAge] = useState();
+
+  const data = {
+    labels: stats.map(x => x[0]),
+    datasets: [
+      {
+        label: 'Weight (g)',
+        data: stats.map(x => x[1]),
+        fill: false,
+        borderColor: 'rgb(0,0,0)',
+        tension: 0
+      }
+    ]
+  };
+
+
   const imageLinks = [];
   const effectRan = useRef(false);
 
@@ -22,7 +40,6 @@ function App() {
             method: 'get',
             timeout: 8000,
         })
-        console.log(res.data);
         return res.data
     }
     catch (err) {
@@ -68,32 +85,34 @@ function App() {
           });
 
           setImages(imageLinks);
-          console.log("it works");
 
       });
 
       getSheetsStats()
         .then(response => {
-          setStats(response.values[response.values.length-1]);
+          setStats(response.values.slice(1));
         })
+
+
 
       getSheetsAge()
         .then(response => {
           setAge(response.values[0][0]);
-          console.log(age);
         })
 
     },[])
 
 
 
-
-
   return (
     <div className="App">
       <Container>
-        <Intro date={stats[0]} weight={stats[1]} age={age}/>
+        <Intro date={stats[stats.length-1][0]} weight={stats[stats.length-1][1]} age={age}/>
         <PhotoGallery images={images}/>
+        <div className='lineChart'>
+          <Line data={data} />
+        </div>
+
       </Container>
     </div>
   );
